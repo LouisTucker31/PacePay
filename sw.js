@@ -13,6 +13,7 @@ const ASSETS = [
   './js/ui.js',
   './js/app.js',
   './js/settings.js',
+  './js/notifications.js',
   './manifest.json',
   './icons/icon-180.png',
   './icons/favicon-32.png',
@@ -34,6 +35,20 @@ self.addEventListener('activate', event => {
     )
   );
   self.clients.claim();
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      for (const client of list) {
+        if (client.url.includes('index.html') || client.url.endsWith('/')) {
+          return client.focus();
+        }
+      }
+      return clients.openWindow('./index.html');
+    })
+  );
 });
 
 // Cache-first for app assets, network-first for Google Fonts

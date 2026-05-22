@@ -190,7 +190,7 @@ function openSheet(id) {
   sheet.style.transform  = '';
   sheet.style.transition = '';
   sheet.classList.add('is-open');
-  document.body.style.overflow = 'hidden';
+  // Don't lock body scroll — causes iOS page jump
 }
 
 function closeSheet(id) {
@@ -205,9 +205,7 @@ function closeSheet(id) {
     sheet.classList.remove('is-open');
     sheet.style.transform  = '';
     sheet.style.transition = '';
-    sheet.style.bottom     = '';
   }
-  document.body.style.overflow = '';
 }
 
 function closeAllSheets() {
@@ -215,7 +213,6 @@ function closeAllSheets() {
     s.classList.remove('is-open');
     s.style.transform  = '';
     s.style.transition = '';
-    s.style.bottom     = '';
   });
   var overlay = document.getElementById('overlay');
   if (overlay) {
@@ -223,7 +220,6 @@ function closeAllSheets() {
     overlay.style.opacity    = '';
     overlay.style.transition = '';
   }
-  document.body.style.overflow = '';
 }
 
 // ============================================
@@ -251,6 +247,7 @@ function initSheetDrag(sheet) {
     lastT     = Date.now();
     velocity  = 0;
     isDragging = true;
+    sheet.dataset.dragging = '1';
     // Kill transition so sheet tracks finger instantly
     sheet.style.transition = 'none';
     getOverlay().style.transition = 'none';
@@ -293,15 +290,15 @@ function initSheetDrag(sheet) {
     sheet.style.transition = '';
     getOverlay().style.transition = '';
 
+    delete sheet.dataset.dragging;
+
     if (dy > THRESHOLD || velocity > VELOCITY_TH) {
-      // Let CSS transition animate sheet off-screen, then clean up
       sheet.style.transform = 'translateX(-50%) translateY(100%)';
       getOverlay().style.opacity = '0';
       setTimeout(function() {
         closeSheet(sheet.id);
       }, 320);
     } else {
-      // Snap back open
       sheet.style.transform = 'translateX(-50%) translateY(0)';
       getOverlay().style.opacity = '';
     }
@@ -326,13 +323,21 @@ function initSheetKeyboardAdjust() {
   if (!window.visualViewport) return;
 
   function adjust() {
-    var keyboardHeight = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
-    keyboardHeight = Math.max(0, keyboardHeight);
+    var vv             = window.visualViewport;
+    var keyboardHeight = window.innerHeight - vv.height - vv.offsetTop;
+    keyboardHeight     = Math.max(0, keyboardHeight);
 
     document.querySelectorAll('.sheet.is-open').forEach(function(sheet) {
-      // Only adjust if the sheet isn't mid-drag
-      if (sheet.style.transition === 'none') return;
-      sheet.style.bottom = keyboardHeight > 0 ? keyboardHeight + 'px' : '';
+      if (sheet.dataset.dragging) return;
+      if (keyboardHeight > 0) {
+        // Lift the sheet just enough so it clears the keyboard
+        // translateX(-50%) keeps horizontal centering; translateY moves it up
+        sheet.style.transition = 'transform 280ms cubic-bezier(0.22,1,0.36,1)';
+        sheet.style.transform  = 'translateX(-50%) translateY(-' + keyboardHeight + 'px)';
+      } else {
+        sheet.style.transition = 'transform 280ms cubic-bezier(0.22,1,0.36,1)';
+        sheet.style.transform  = 'translateX(-50%) translateY(0)';
+      }
     });
   }
 

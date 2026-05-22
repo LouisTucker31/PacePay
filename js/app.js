@@ -21,6 +21,11 @@ function init() {
   bindEvents();
   UI.initAllSheetDrags();
   UI.initSheetKeyboardAdjust();
+
+  // Re-schedule if permission already granted
+  if (window.PacePayNotifications) {
+    window.PacePayNotifications.scheduleDaily();
+  }
 }
 
 // ============================================

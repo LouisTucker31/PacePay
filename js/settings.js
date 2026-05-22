@@ -7,6 +7,16 @@ var UI = window.PacePayUI;
 
 var editingField = null;
 
+function updateNotificationStatus() {
+  var el = document.getElementById('val-notifications');
+  if (!el) return;
+  if (!('Notification' in window)) {
+    el.textContent = 'Not supported';
+    return;
+  }
+  el.textContent = Notification.permission === 'granted' ? 'On' : 'Off';
+}
+
 function shake(el) {
   if (!el) return;
   el.classList.remove('shake');
@@ -304,6 +314,24 @@ function bindSettingsEvents() {
     PP.addSpend(amount, date);
     renderValues();
     closeSettingsSheet('sheet-backdated');
+  });
+
+  // Notifications row
+  updateNotificationStatus();
+  document.getElementById('row-notifications')?.addEventListener('click', function() {
+    var N = window.PacePayNotifications;
+    if (!N) return;
+    if (!('Notification' in window)) {
+      alert('Notifications are not supported in this browser.\nInstall PacePay to your home screen to enable them.');
+      return;
+    }
+    if (Notification.permission === 'denied') {
+      alert('Notifications are blocked. Please enable them in your device Settings > Safari > PacePay.');
+      return;
+    }
+    N.requestPermission(function(granted) {
+      updateNotificationStatus();
+    });
   });
 
   // Add funds — open

@@ -193,6 +193,8 @@
   transform: translateX(-50%) translateY(100%);
   width: 100%;
   max-width: var(--max-width);
+  max-height: 92dvh;
+  overflow-y: auto;
   background: var(--colour-surface);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   padding: var(--space-xl) var(--space-lg) calc(var(--space-3xl) + env(safe-area-inset-bottom));
