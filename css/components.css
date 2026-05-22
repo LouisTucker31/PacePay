@@ -166,17 +166,23 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(2px);
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   z-index: 100;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--duration-base) var(--ease-out);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    backdrop-filter var(--duration-base) var(--ease-out),
+    -webkit-backdrop-filter var(--duration-base) var(--ease-out);
 }
 
 .overlay.is-open {
   opacity: 1;
   pointer-events: auto;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* --- Sheet (bottom drawer) --- */

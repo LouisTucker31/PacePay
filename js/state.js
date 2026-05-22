@@ -157,6 +157,12 @@ function addSpend(amount, date = todayISO()) {
   return entry;
 }
 
+function addFunds(amount) {
+  if (state.budget === null) return;
+  state.budget += parseFloat(amount);
+  saveState();
+}
+
 function deleteSpend(id) {
   state.spends = state.spends.filter(s => s.id !== id);
   saveState();
@@ -199,6 +205,7 @@ window.PacePay = {
   // Actions
   loadState,
   addSpend,
+  addFunds,
   deleteSpend,
   updateSettings,
   resetPeriod,

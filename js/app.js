@@ -20,6 +20,7 @@ function init() {
 
   bindEvents();
   UI.initAllSheetDrags();
+  UI.initSheetKeyboardAdjust();
 }
 
 // ============================================
@@ -40,11 +41,6 @@ function bindEvents() {
   // --- Spend input: submit on Enter ---
   document.getElementById('spend-input')?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') handleAddSpend();
-  });
-
-  // --- Settings button ---
-  document.getElementById('btn-settings')?.addEventListener('click', () => {
-    window.location.href = 'settings.html';
   });
 
   // --- Overlay click: close all sheets ---

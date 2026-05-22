@@ -2,6 +2,29 @@
    PACEPAY — Settings Page
    ============================================ */
 
+/* --- Settings panel (full-screen slide-in) --- */
+.settings-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform var(--duration-slow) var(--ease-out);
+  background-color: var(--pace-bg); /* inherits live CSS var — matches home */
+}
+
+.settings-panel.is-open {
+  transform: translateX(0);
+}
+
+.settings-panel__inner {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--space-lg) env(safe-area-inset-bottom);
+}
+
+/* --- Settings page content --- */
 .settings-page {
   padding: var(--space-lg) 0 var(--space-3xl);
 }

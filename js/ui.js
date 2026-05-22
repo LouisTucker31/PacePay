@@ -205,6 +205,7 @@ function closeSheet(id) {
     sheet.classList.remove('is-open');
     sheet.style.transform  = '';
     sheet.style.transition = '';
+    sheet.style.bottom     = '';
   }
   document.body.style.overflow = '';
 }
@@ -214,6 +215,7 @@ function closeAllSheets() {
     s.classList.remove('is-open');
     s.style.transform  = '';
     s.style.transition = '';
+    s.style.bottom     = '';
   });
   var overlay = document.getElementById('overlay');
   if (overlay) {
@@ -317,6 +319,28 @@ function initAllSheetDrags() {
 }
 
 // ============================================
+// Keyboard-aware sheet positioning
+// ============================================
+
+function initSheetKeyboardAdjust() {
+  if (!window.visualViewport) return;
+
+  function adjust() {
+    var keyboardHeight = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
+    keyboardHeight = Math.max(0, keyboardHeight);
+
+    document.querySelectorAll('.sheet.is-open').forEach(function(sheet) {
+      // Only adjust if the sheet isn't mid-drag
+      if (sheet.style.transition === 'none') return;
+      sheet.style.bottom = keyboardHeight > 0 ? keyboardHeight + 'px' : '';
+    });
+  }
+
+  window.visualViewport.addEventListener('resize', adjust);
+  window.visualViewport.addEventListener('scroll', adjust);
+}
+
+// ============================================
 // Exports
 // ============================================
 
@@ -329,5 +353,6 @@ window.PacePayUI = {
   closeSheet,
   closeAllSheets,
   initAllSheetDrags,
+  initSheetKeyboardAdjust,
   PACE_TOKENS,
 };
