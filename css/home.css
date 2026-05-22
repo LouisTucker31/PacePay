@@ -1,0 +1,348 @@
+/* ============================================
+   PACEPAY — Home Screen
+   ============================================ */
+
+/* --- Top bar --- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg) 0 var(--space-md);
+}
+
+.topbar__logo {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--colour-text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* --- Hero: daily number --- */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-sm);
+  padding: var(--space-3xl) 0;
+}
+
+.hero__amount {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 18vw, 5.5rem);
+  font-weight: var(--weight-normal);
+  line-height: 1;
+  color: var(--colour-text-primary);
+  letter-spacing: -0.02em;
+}
+
+@keyframes hero-pulse {
+  0%   { transform: scale(1);    opacity: 1; }
+  30%  { transform: scale(1.04); opacity: 0.85; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+.hero--pulse {
+  animation: hero-pulse 500ms var(--ease-out) forwards;
+}
+
+.hero__label {
+  font-size: var(--size-label);
+  color: var(--colour-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: var(--weight-medium);
+}
+
+.hero__status {
+  margin-top: var(--space-sm);
+}
+
+/* --- Spend input row (inline, below hero) --- */
+.spend-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding-bottom: var(--space-2xl);
+}
+
+.spend-row__input-wrap {
+  width: 100%;
+}
+
+/* --- Progress bar: days remaining --- */
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--colour-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: var(--pace-accent);
+  border-radius: var(--radius-full);
+  transition:
+    width var(--duration-slow) var(--ease-out),
+    background-color var(--duration-slow) var(--ease-out);
+}
+
+/* --- Days remaining label --- */
+.days-label {
+  text-align: center;
+  font-size: var(--size-small);
+  color: var(--colour-text-subtle);
+  margin-bottom: var(--space-2xl);
+}
+
+/* --- Payday reset screen --- */
+.reset {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: var(--space-xl);
+}
+
+.reset__eyebrow {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-subtle);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.reset__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 10vw, 2.75rem);
+  line-height: 1.1;
+  color: var(--colour-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.reset__body {
+  font-size: var(--size-body);
+  color: var(--colour-text-muted);
+  margin-bottom: var(--space-xl);
+}
+
+.reset__stat-card {
+  background: var(--colour-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.reset__stat-label {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.reset__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 16vw, 4.5rem);
+  line-height: 1;
+  color: var(--colour-text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+.reset__stat-sub {
+  font-size: var(--size-small);
+  color: var(--colour-text-subtle);
+}
+
+.reset__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.reset__rollover-btn {
+  color: var(--colour-text-muted);
+  font-size: var(--size-body);
+}
+
+/* --- New period form --- */
+.new-period {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: var(--space-xl);
+}
+
+.new-period__fields {
+  margin-bottom: var(--space-md);
+}
+
+.new-period__label {
+  display: block;
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.new-period__optional {
+  font-weight: var(--weight-normal);
+  color: var(--colour-text-subtle);
+}
+
+/* --- Onboarding multi-step flow --- */
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: var(--space-xl);
+}
+
+.onboarding__viewport {
+  overflow: hidden;
+  flex: 1;
+}
+
+.onboarding__track {
+  display: grid;
+  grid-template-columns: repeat(3, 100%);
+  transition: transform var(--duration-slow) var(--ease-out);
+  will-change: transform;
+}
+
+.onboarding__track[data-current="1"] { transform: translateX(0); }
+.onboarding__track[data-current="2"] { transform: translateX(-100%); }
+.onboarding__track[data-current="3"] { transform: translateX(-200%); }
+
+.onboarding__step {
+  min-width: 0;
+  padding: 0 var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Typography */
+.onboarding__eyebrow {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-subtle);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.onboarding__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 10vw, 2.75rem);
+  line-height: 1.1;
+  color: var(--colour-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.onboarding__body {
+  font-size: var(--size-body);
+  color: var(--colour-text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+/* Input */
+.onboarding__input-wrap {
+  width: 100%;
+  margin-bottom: var(--space-xl);
+}
+
+.onboarding__input {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: var(--space-md) var(--space-lg);
+}
+
+.onboarding__input-wrap .onboarding__input {
+  padding-left: 2rem;
+}
+
+/* Buttons */
+.onboarding__cta {
+  width: 100%;
+  margin-bottom: var(--space-sm);
+}
+
+.onboarding__back {
+  width: 100%;
+  color: var(--colour-text-subtle);
+}
+
+/* Step 3 summary card */
+.onboarding__summary {
+  width: 100%;
+  background: var(--colour-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.onboarding__daily-amount {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 16vw, 4.5rem);
+  line-height: 1;
+  color: var(--colour-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.onboarding__daily-label {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.onboarding__summary-details {
+  font-size: var(--size-small);
+  color: var(--colour-text-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.onboarding__summary-dot {
+  opacity: 0.5;
+}
+
+/* Step indicator dots */
+.onboarding__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg) 0 var(--space-2xl);
+}
+
+.onboarding__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--colour-border);
+  transition: background var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+
+.onboarding__dot.is-active {
+  background: var(--colour-text-primary);
+  transform: scale(1.4);
+}

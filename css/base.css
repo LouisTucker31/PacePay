@@ -1,0 +1,65 @@
+/* ============================================
+   PACEPAY — Reset & Base
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  font-weight: var(--weight-normal);
+  color: var(--colour-text-primary);
+  background-color: var(--pace-bg);
+  min-height: 100%;
+  line-height: 1.5;
+  transition:
+    background-color var(--duration-slow) var(--ease-out);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility: screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Utility: hide */
+.hidden {
+  display: none !important;
+}
+
+/* Utility: muted text */
+.text-muted {
+  color: var(--colour-text-muted);
+}
+
+/* Utility: subtle text */
+.text-subtle {
+  color: var(--colour-text-subtle);
+  font-size: var(--size-small);
+}
+
+/* Layout wrapper */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg) env(safe-area-inset-bottom);
+}

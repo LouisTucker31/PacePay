@@ -1,0 +1,71 @@
+/* ============================================
+   PACEPAY — Design Tokens & CSS Variables
+   ============================================ */
+
+:root {
+
+  /* --- Colour: Neutral Base --- */
+  --colour-bg:           #F7F6F3;
+  --colour-surface:      #FFFFFF;
+  --colour-border:       #E8E6E1;
+  --colour-text-primary: #1A1A18;
+  --colour-text-muted:   #8A8880;
+  --colour-text-subtle:  #B8B6B0;
+
+  /* --- Colour: Pace States (gentle, not alarming) --- */
+  --colour-green-bg:     #EDF5EE;
+  --colour-green-accent: #4A9B5F;
+  --colour-green-text:   #2D6B3E;
+
+  --colour-amber-bg:     #FDF5E8;
+  --colour-amber-accent: #C9892A;
+  --colour-amber-text:   #7A520F;
+
+  --colour-red-bg:       #FCEEEE;
+  --colour-red-accent:   #C05050;
+  --colour-red-text:     #7A2A2A;
+
+  /* --- Active state (set by JS on <body>) --- */
+  --pace-bg:             var(--colour-green-bg);
+  --pace-accent:         var(--colour-green-accent);
+  --pace-text:           var(--colour-green-text);
+
+  /* --- Typography --- */
+  --font-display:  'DM Serif Display', Georgia, serif;
+  --font-body:     'DM Sans', system-ui, sans-serif;
+
+  --size-daily:    4rem;     /* big central number */
+  --size-label:    0.875rem;
+  --size-body:     1rem;
+  --size-small:    0.8125rem;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-bold:   700;
+
+  /* --- Spacing --- */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* --- Layout --- */
+  --max-width:     420px;
+  --radius-sm:     8px;
+  --radius-md:     16px;
+  --radius-lg:     24px;
+  --radius-full:   999px;
+
+  /* --- Shadow --- */
+  --shadow-card:   0 2px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-button: 0 2px 8px rgba(0,0,0,0.10);
+
+  /* --- Motion --- */
+  --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 280ms;
+  --duration-slow: 500ms;
+}

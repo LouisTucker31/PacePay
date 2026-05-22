@@ -1,0 +1,147 @@
+/* ============================================
+   PACEPAY — Settings Page
+   ============================================ */
+
+.settings-page {
+  padding: var(--space-lg) 0 var(--space-3xl);
+}
+
+.settings-page__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.settings-page__back {
+  /* uses .btn--icon */
+}
+
+.settings-page__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--colour-text-primary);
+}
+
+/* --- Settings section --- */
+.settings-section {
+  margin-bottom: var(--space-xl);
+}
+
+.settings-section__label {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: var(--space-sm);
+  padding: 0 var(--space-sm);
+}
+
+/* --- Settings row --- */
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--colour-surface);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--colour-border);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+  gap: var(--space-md);
+}
+
+.settings-row:first-of-type {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.settings-row:last-of-type {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  border-bottom: none;
+}
+
+.settings-row:only-of-type {
+  border-radius: var(--radius-md);
+  border-bottom: none;
+}
+
+.settings-row:hover {
+  background: var(--colour-bg);
+}
+
+.settings-row__label {
+  font-size: var(--size-body);
+  color: var(--colour-text-primary);
+  flex: 1;
+}
+
+.settings-row__value {
+  font-size: var(--size-body);
+  color: var(--colour-text-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  min-width: 80px;
+}
+
+.settings-row__chevron {
+  color: var(--colour-text-subtle);
+  flex-shrink: 0;
+  margin-left: var(--space-sm);
+}
+
+/* --- Sheet field label --- */
+.new-period__label {
+  font-size: var(--size-small);
+  font-weight: var(--weight-medium);
+  color: var(--colour-text-muted);
+}
+
+/* --- Danger zone --- */
+.settings-row--danger .settings-row__label {
+  color: var(--colour-red-accent);
+}
+
+/* --- Spend history list --- */
+.spend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--colour-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.spend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--colour-surface);
+  padding: var(--space-md) var(--space-lg);
+  gap: var(--space-md);
+}
+
+.spend-item__date {
+  font-size: var(--size-small);
+  color: var(--colour-text-muted);
+  min-width: 80px;
+}
+
+.spend-item__amount {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-medium);
+}
+
+.spend-item__actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-left: auto;
+}
+
+.spend-item__delete {
+  color: var(--colour-red-accent);
+  font-size: var(--size-small);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+}

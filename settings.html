@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#EDF5EE" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="PacePay" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <title>Settings — PacePay</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <div class="settings-page">
+
+      <!-- Header -->
+      <header class="settings-page__header">
+        <button id="btn-back" class="btn btn--icon" aria-label="Back">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <h1 class="settings-page__title">Settings</h1>
+      </header>
+
+      <!-- Section: Budget period -->
+      <section class="settings-section">
+        <p class="settings-section__label">Budget period</p>
+        <div class="settings-section__rows">
+
+          <div class="settings-row" id="row-budget">
+            <span class="settings-row__label">Starting budget</span>
+            <span class="settings-row__value" id="val-budget">—</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <div class="settings-row" id="row-start-date">
+            <span class="settings-row__label">Start date</span>
+            <span class="settings-row__value" id="val-start-date">—</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <div class="settings-row" id="row-end-date">
+            <span class="settings-row__label">Payday / end date</span>
+            <span class="settings-row__value" id="val-end-date">—</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <div class="settings-row" id="row-remaining">
+            <span class="settings-row__label">Current remaining</span>
+            <span class="settings-row__value" id="val-remaining">—</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Thresholds -->
+      <section class="settings-section">
+        <p class="settings-section__label">Pace thresholds</p>
+        <div class="settings-section__rows">
+
+          <div class="settings-row" id="row-warn">
+            <span class="settings-row__label">Warning level</span>
+            <span class="settings-row__value" id="val-warn">—/day</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+          <div class="settings-row" id="row-danger">
+            <span class="settings-row__label">Danger level</span>
+            <span class="settings-row__value" id="val-danger">—/day</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Spend history -->
+      <section class="settings-section">
+        <p class="settings-section__label">Spend history</p>
+        <div id="spend-list-container">
+          <!-- Populated by settings.js -->
+          <p class="text-subtle" style="padding: var(--space-sm)">No spends recorded yet.</p>
+        </div>
+        <button id="btn-add-backdated" class="btn btn--ghost" style="margin-top: var(--space-sm); padding-left: 0">
+          + Add spend for a previous date
+        </button>
+      </section>
+
+      <!-- Section: Danger zone -->
+      <section class="settings-section">
+        <p class="settings-section__label">Reset</p>
+        <div class="settings-section__rows">
+          <div class="settings-row settings-row--danger" id="row-reset">
+            <span class="settings-row__label">Reset budget period</span>
+            <svg class="settings-row__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /.settings-page -->
+  </div><!-- /.app-shell -->
+
+
+  <!-- ── Overlay ───────────────────────────────── -->
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+
+  <!-- ── Edit field sheet (reused for all single-value edits) ── -->
+  <div id="sheet-edit" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-edit-title">
+    <div class="sheet__handle"></div>
+    <h2 id="sheet-edit-title" class="sheet__title">Edit</h2>
+
+    <div class="input-currency" id="edit-currency-wrap" style="margin-bottom: var(--space-xl)">
+      <span class="input-currency__symbol">£</span>
+      <input id="edit-input" class="input-field" type="number" inputmode="decimal" autocomplete="off" />
+    </div>
+
+    <input id="edit-date-input" class="input-field hidden" type="date" style="margin-bottom: var(--space-xl)" />
+
+    <button id="btn-edit-confirm" class="btn btn--primary">Save</button>
+    <button data-close-sheet="sheet-edit" class="btn btn--ghost" style="margin-top: var(--space-md); width: 100%">Cancel</button>
+  </div>
+
+
+  <!-- ── Backdated spend sheet ───────────────── -->
+  <div id="sheet-backdated" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-backdated-title">
+    <div class="sheet__handle"></div>
+    <h2 id="sheet-backdated-title" class="sheet__title">Add a past spend</h2>
+
+    <label class="new-period__label" for="bd-date" style="display:block; margin-bottom: var(--space-sm)">Date</label>
+    <input id="bd-date" class="input-field" type="date" style="margin-bottom: var(--space-xl)" />
+
+    <label class="new-period__label" for="bd-amount" style="display:block; margin-bottom: var(--space-sm)">Amount</label>
+    <div class="input-currency" style="margin-bottom: var(--space-xl)">
+      <span class="input-currency__symbol">£</span>
+      <input id="bd-amount" class="input-field" type="number" inputmode="decimal" placeholder="0.00" min="0.01" step="0.01" autocomplete="off" />
+    </div>
+
+    <button id="btn-backdated-confirm" class="btn btn--primary">Add spend</button>
+    <button data-close-sheet="sheet-backdated" class="btn btn--ghost" style="margin-top: var(--space-md); width: 100%">Cancel</button>
+  </div>
+
+
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/settings.js"></script>
+
+</body>
+</html>
