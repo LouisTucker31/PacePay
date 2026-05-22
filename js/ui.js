@@ -34,7 +34,7 @@ const PACE_TOKENS = {
 function applyPaceColour(pace) {
   const t = PACE_TOKENS[pace];
   const root = document.documentElement;
-  root.style.setProperty('--pace-bg',     t.bg);
+  // --pace-bg is intentionally not changed — background is always --app-bg
   root.style.setProperty('--pace-accent', t.accent);
   root.style.setProperty('--pace-text',   t.text);
 }

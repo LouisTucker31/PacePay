@@ -9,7 +9,7 @@
   z-index: 200;
   transform: translateX(100%);
   transition: transform var(--duration-slow) var(--ease-out);
-  background-color: var(--pace-bg); /* inherits live CSS var — matches home */
+  background-color: var(--app-bg);
 }
 
 .settings-panel.is-open {

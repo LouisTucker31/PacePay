@@ -25,8 +25,11 @@
   --colour-red-accent:   #C05050;
   --colour-red-text:     #7A2A2A;
 
-  /* --- Active state (set by JS on <body>) --- */
-  --pace-bg:             var(--colour-green-bg);
+  /* --- App background (fixed, never changes) --- */
+  --app-bg:              #FAF0EB;
+
+  /* --- Active state (accent/text only — bg no longer changes) --- */
+  --pace-bg:             var(--app-bg);
   --pace-accent:         var(--colour-green-accent);
   --pace-text:           var(--colour-green-text);
 

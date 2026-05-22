@@ -20,12 +20,10 @@ body {
   font-size: var(--size-body);
   font-weight: var(--weight-normal);
   color: var(--colour-text-primary);
-  background-color: var(--pace-bg);
+  background-color: var(--app-bg);
   height: 100%;
   overflow: hidden;
   line-height: 1.5;
-  transition:
-    background-color var(--duration-slow) var(--ease-out);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
