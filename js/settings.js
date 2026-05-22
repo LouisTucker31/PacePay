@@ -20,7 +20,7 @@ function shake(el) {
 
 function init() {
   PP.loadState();
-  UI.applyPaceColour(PP.paceState());
+  UI.applyPaceColour('green');
   renderValues();
   bindEvents();
   UI.initAllSheetDrags();

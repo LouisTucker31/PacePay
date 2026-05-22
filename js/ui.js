@@ -181,20 +181,46 @@ function hideOnboarding() {
 // ============================================
 
 function openSheet(id) {
-  document.getElementById('overlay')?.classList.add('is-open');
-  document.getElementById(id)?.classList.add('is-open');
+  var overlay = document.getElementById('overlay');
+  var sheet   = document.getElementById(id);
+  if (!overlay || !sheet) return;
+  overlay.style.opacity    = '';
+  overlay.style.transition = '';
+  overlay.classList.add('is-open');
+  sheet.style.transform  = '';
+  sheet.style.transition = '';
+  sheet.classList.add('is-open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeSheet(id) {
-  document.getElementById('overlay')?.classList.remove('is-open');
-  document.getElementById(id)?.classList.remove('is-open');
+  var overlay = document.getElementById('overlay');
+  var sheet   = document.getElementById(id);
+  if (overlay) {
+    overlay.classList.remove('is-open');
+    overlay.style.opacity    = '';
+    overlay.style.transition = '';
+  }
+  if (sheet) {
+    sheet.classList.remove('is-open');
+    sheet.style.transform  = '';
+    sheet.style.transition = '';
+  }
   document.body.style.overflow = '';
 }
 
 function closeAllSheets() {
-  document.querySelectorAll('.sheet.is-open').forEach(s => s.classList.remove('is-open'));
-  document.getElementById('overlay')?.classList.remove('is-open');
+  document.querySelectorAll('.sheet').forEach(function(s) {
+    s.classList.remove('is-open');
+    s.style.transform  = '';
+    s.style.transition = '';
+  });
+  var overlay = document.getElementById('overlay');
+  if (overlay) {
+    overlay.classList.remove('is-open');
+    overlay.style.opacity    = '';
+    overlay.style.transition = '';
+  }
   document.body.style.overflow = '';
 }
 
@@ -205,71 +231,85 @@ function closeAllSheets() {
 function initSheetDrag(sheet) {
   var startY      = 0;
   var currentY    = 0;
-  var dragging    = false;
-  var THRESHOLD   = 80;  // px dragged down to dismiss
-  var VELOCITY_TH = 0.4; // px/ms flick speed to dismiss
+  var isDragging  = false;
+  var THRESHOLD   = 100; // px to dismiss
+  var VELOCITY_TH = 0.3; // px/ms flick
   var lastY       = 0;
   var lastT       = 0;
   var velocity    = 0;
 
+  function getOverlay() { return document.getElementById('overlay'); }
+
   function onStart(e) {
     if (!sheet.classList.contains('is-open')) return;
-    startY   = e.touches ? e.touches[0].clientY : e.clientY;
-    lastY    = startY;
-    lastT    = Date.now();
-    dragging = true;
-    velocity = 0;
+    var touch = e.touches[0];
+    startY    = touch.clientY;
+    currentY  = touch.clientY;
+    lastY     = touch.clientY;
+    lastT     = Date.now();
+    velocity  = 0;
+    isDragging = true;
+    // Kill transition so sheet tracks finger instantly
     sheet.style.transition = 'none';
+    getOverlay().style.transition = 'none';
   }
 
   function onMove(e) {
-    if (!dragging) return;
-    currentY = e.touches ? e.touches[0].clientY : e.clientY;
-    var dy = currentY - startY;
-    if (dy < 0) dy = 0; // don't allow dragging up
+    if (!isDragging) return;
+    var touch = e.touches[0];
+    currentY  = touch.clientY;
+    var dy    = currentY - startY;
 
-    var now = Date.now();
-    var dt  = now - lastT;
-    if (dt > 0) velocity = (currentY - lastY) / dt;
-    lastY = currentY;
-    lastT = now;
-
-    sheet.style.transform = 'translateX(-50%) translateY(' + dy + 'px)';
-
-    // Fade overlay proportionally
-    var sheetH  = sheet.offsetHeight;
-    var opacity = Math.max(0, 1 - (dy / sheetH) * 1.5);
-    var overlay = document.getElementById('overlay');
-    if (overlay) overlay.style.opacity = opacity;
+    // Only intercept downward drags — let upward scrolls pass through
+    if (dy <= 0) return;
 
     e.preventDefault();
+
+    var now = Date.now();
+    var dt  = now - lastT || 1;
+    velocity = (currentY - lastY) / dt;
+    lastY    = currentY;
+    lastT    = now;
+
+    // Slight rubber-band resistance
+    var resistance = 1 - Math.min(dy / (sheet.offsetHeight * 2), 0.4);
+    var visual     = dy * resistance;
+
+    sheet.style.transform = 'translateX(-50%) translateY(' + visual + 'px)';
+
+    var opacity = Math.max(0, 1 - (visual / sheet.offsetHeight) * 1.8);
+    getOverlay().style.opacity = opacity;
   }
 
   function onEnd() {
-    if (!dragging) return;
-    dragging = false;
-    sheet.style.transition = '';
+    if (!isDragging) return;
+    isDragging = false;
 
     var dy = currentY - startY;
+
+    // Restore transitions
+    sheet.style.transition = '';
+    getOverlay().style.transition = '';
+
     if (dy > THRESHOLD || velocity > VELOCITY_TH) {
-      // Dismiss
-      var id = sheet.id;
-      sheet.style.transform = '';
-      var overlay = document.getElementById('overlay');
-      if (overlay) overlay.style.opacity = '';
-      closeSheet(id);
+      // Let CSS transition animate sheet off-screen, then clean up
+      sheet.style.transform = 'translateX(-50%) translateY(100%)';
+      getOverlay().style.opacity = '0';
+      setTimeout(function() {
+        closeSheet(sheet.id);
+      }, 320);
     } else {
-      // Snap back
+      // Snap back open
       sheet.style.transform = 'translateX(-50%) translateY(0)';
-      var overlay = document.getElementById('overlay');
-      if (overlay) overlay.style.opacity = '';
+      getOverlay().style.opacity = '';
     }
   }
 
+  // Must be non-passive so preventDefault() works in onMove
   sheet.addEventListener('touchstart',  onStart, { passive: true });
   sheet.addEventListener('touchmove',   onMove,  { passive: false });
-  sheet.addEventListener('touchend',    onEnd);
-  sheet.addEventListener('touchcancel', onEnd);
+  sheet.addEventListener('touchend',    onEnd,   { passive: true });
+  sheet.addEventListener('touchcancel', onEnd,   { passive: true });
 }
 
 function initAllSheetDrags() {
