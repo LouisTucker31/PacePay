@@ -64,5 +64,5 @@ body {
   min-height: 100dvh;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--space-lg);
+  padding: env(safe-area-inset-bottom) var(--space-lg) 0;
 }
