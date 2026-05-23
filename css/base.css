@@ -8,13 +8,15 @@
   padding: 0;
 }
 
+html, body {
+  background-color: #FAF0EB;
+}
+
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-  min-height: 100%;
-  min-height: -webkit-fill-available;
+  height: 100%;
   overflow: hidden;
-  background-color: var(--app-bg);
 }
 
 body {
@@ -22,9 +24,7 @@ body {
   font-size: var(--size-body);
   font-weight: var(--weight-normal);
   color: var(--colour-text-primary);
-  background-color: var(--app-bg);
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  height: 100%;
   overflow: hidden;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -64,5 +64,5 @@ body {
   min-height: 100dvh;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: env(safe-area-inset-bottom) var(--space-lg) 0;
+  padding: env(safe-area-inset-top) var(--space-lg) env(safe-area-inset-bottom);
 }
