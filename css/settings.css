@@ -21,7 +21,7 @@
   inset: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0 var(--space-lg) env(safe-area-inset-bottom);
+  padding: 0 var(--space-lg);
 }
 
 /* --- Settings page content --- */

@@ -197,7 +197,7 @@
   overflow-y: auto;
   background: var(--colour-surface);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: var(--space-xl) var(--space-lg) calc(var(--space-3xl) + env(safe-area-inset-bottom));
+  padding: var(--space-xl) var(--space-lg) var(--space-3xl);
   z-index: 101;
   transition: transform var(--duration-slow) var(--ease-out);
   box-shadow: 0 -4px 32px rgba(0,0,0,0.10);
